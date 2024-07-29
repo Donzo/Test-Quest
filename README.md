@@ -12,7 +12,8 @@ Our goal is to elevate the Learner and Teacher experience with cutting edge AI a
 
 ## Learn More, Quest
 
-Tippi has embedded readme.md files throughout the codebase.
-**Most of the relevant code for judges and interested developers lives in the `/code` folder.**
+**Most of the relevant code for judges and interested developers lives in the [`/code` folder](./code).**
+
+Tippi has embedded readme.md files throughout the codebase along with some easter eggs.
 
 [Read more here](./code/readme.md) in the `code/readme.md`
