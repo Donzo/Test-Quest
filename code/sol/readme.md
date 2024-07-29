@@ -15,8 +15,9 @@ The `Gold.sol` contract is an ERC20 token contract that represents the in-game c
 - **Minting**: The contract includes a mint function that can only be called by addresses with the MINTER_ROLE.
 
 ### Roles:
-- **DEFAULT_ADMIN_ROLE**: The default admin role, which has permission to grant and revoke other roles.
-- **MINTER_ROLE**: Addresses with this role can mint new GOLD tokens.
+- **DEFAULT_ADMIN_ROLE**: The default admin role, which has permission to grant and revoke other roles. Right now the deployed Gold v0.1 (0xc2BC0B330D39F4380946a6bEAf951829B31FF887 on Open Campus Codex) has Donzo and my two addresses added to this role.  To add additional DEFAULT_ADMIN_ROLE, call the grantRole function for role = 0x0000000000000000000000000000000000000000000000000000000000000000 and account as whatever address you want, assuming you are using an already approved address to call this function.
+
+- **MINTER_ROLE**: Addresses with this role can mint new GOLD tokens. Right now, only Donzo, Tippi, and the TestQuest.sol contract have the right to mint new GOLD tokens.
 
 ### Deployment:
 - The contract is deployed at `0xc2BC0B330D39F4380946a6bEAf951829B31FF887` on the Open Campus Codex.
