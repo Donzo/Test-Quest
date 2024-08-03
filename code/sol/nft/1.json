@@ -1,0 +1,10 @@
+{
+    "name": "Magic Wand - 1",
+    "description": "Tier 1, a wand that boosts your magic.",
+    "image": "https://github.com/Donzo/Test-Quest/blob/main/images/wands.png?raw=true",
+    "attributes": [
+        { "trait_type": "Equipment Type", "value": "Wand" },
+        {  "trait_type": "Boost", "value": "Magic" },
+        { "trait_type": "Tier", "value": "1" }
+    ]
+}

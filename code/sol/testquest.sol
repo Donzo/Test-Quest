@@ -8,14 +8,17 @@ Working functions:
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 import "./Gold.sol";
+import "./nft/nft.sol";
 
 // TestQuest V 0.1 : Register User and mint them GOLD
+// TestQuest V 0.2 : Allow user to buy equipment from Equipment.sol
 // Next step, transfer EDU to the user so they can interact with the Open Campus Chain
 // After this, integrate NFT Characters, Equipment & Tier Boost system
 contract TestQuest {
     // address public authorizedWallet = 0x00F8306C110058b12c00b478986bc3627346671C;
     address public authorizedWallet = 0xbedc4032AAf4d431DD781128d48cFb6b95312244;
     GOLD public goldToken;
+    EQUIP public equipment1155;
 
     mapping(address => bool) public registeredUsers;
 
@@ -25,8 +28,9 @@ contract TestQuest {
         return;
     }
 
-    constructor(address goldAddress) {
+    constructor(address goldAddress, address equipAddress) {
         goldToken = GOLD(goldAddress);
+        equipment1155 = EQUIP(equipAddress);
     }
 
     function registerUser(address user) external onlyAuthorized {
