@@ -1,5 +1,7 @@
 # TestQuest EDUCHAIN Code Notes
 
+### "Our Quest is to elevate the Online Learning (and eventually Teaching) experience with Gamification, AI, and Open Campus Blockchain ($EDU)"
+
 TestQuest is a hackathon project by two ex-teachers and educational web developers:
 - Donzo The Wizard ([Github](https://github.com/Donzo), [Devpost](https://devpost.com/mortonteaches)) 
 - Tippi The Wingbird ([Github](https://github.com/tippi-fifestarr), [Devpost](https://devpost.com/tippi-fifestarr)).

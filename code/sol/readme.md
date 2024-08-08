@@ -5,7 +5,7 @@ This document provides an overview of the smart contracts used in the TestQuest 
 ### Deployed Addresses
 
 Gold.sol: 0xc2BC0B330D39F4380946a6bEAf951829B31FF887
-Equipment.sol: [Deployed Address]
+Equipment1155.sol: 0x3A5a60bc87170AeC94e5DbFA1E7FC1395CE78bB0
 Characters.sol: [Deployed Address]
 testquest.sol: 0xbedc4032AAf4d431DD781128d48cFb6b95312244
 TestQuestApp.sol: [Deployed Address]
@@ -69,6 +69,7 @@ The `TestQuestApp.sol` contract extends the functionality of `testquest.sol` by 
 
 ### Deployment:
 - The contract interacts with the GOLD token contract deployed at `0xc2BC0B330D39F4380946a6bEAf951829B31FF887`.
+- The contract interacts with the Equipment contract deployed at `0x3A5a60bc87170AeC94e5DbFA1E7FC1395CE78bB0`.
 
 ## Characters.sol
 
@@ -88,23 +89,29 @@ The `Characters.sol` contract is responsible for defining and managing character
 ### Deployment:
 - The contract is deployed at `[Deployed Address]` on the Open Campus Codex.
 
-## Equipment.sol
+## Equipment1155.sol
 
-> V 0.1: Define and manage equipment items. (In progress)
+> V 1.0: Initial version with fixed IDs and tiers.
+> V 2.0: Added support for dynamic addition of new items and tiers.
+> V 2.1: Added getter function for querying tier costs.
+> V 2.2: Initialized with 15 predefined items and tier costs, with support for adding new items.
 
-The `Equipment.sol` contract is responsible for defining and managing equipment items within the TestQuest ecosystem. It allows for the creation of different equipment items with specific attributes and provides functionality to retrieve and update equipment information. Note that this contract is still in progress at the time of writing.
+The `Equipment1155.sol` contract is responsible for defining and managing equipment items within the TestQuest ecosystem. It allows for the creation of different equipment items with specific attributes and provides functionality to retrieve and update equipment information.
 
 ### Key Features:
 - **Equipment Definition**: Allows the definition of various equipment items with attributes such as itemId, tier costs, etc.
 - **Equipment Management**: Provides functions to get and update equipment information.
 - **Access Control**: Uses OpenZeppelin's AccessControl to manage roles and permissions.
+- **Minting**: Allows minting of single and multiple tokens.
+- **URI Management**: Allows setting a new URI for all token types.
 
 ### Roles:
 - **DEFAULT_ADMIN_ROLE**: The default admin role, which has permission to grant and revoke other roles.
 - **MINTER_ROLE**: Addresses with this role can mint new equipment items.
+- **URI_SETTER_ROLE**: Addresses with this role can set the URI for the equipment metadata.
 
 ### Deployment:
-- The contract is deployed at `[Deployed Address]` on the Open Campus Codex.
+- The contract is deployed at `0x3A5a60bc87170AeC94e5DbFA1E7FC1395CE78bB0` on the Open Campus Codex.
 
 ## Project Context
 
