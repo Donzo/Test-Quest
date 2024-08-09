@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 /*
-This contract has been deployed [x] on Open Campus Codex at 0x3A5a60bc87170AeC94e5DbFA1E7FC1395CE78bB0].
+This contract has been deployed [x] on Open Campus Codex at 0x91d2595B8aF1b2778830308Be99ea30C30eFC4db.
 This contract has granted MINTER access to [] TestQuestApp.sol at [].
 This contract has the following functions:
 [x] - Add new items and tier costs
@@ -12,7 +12,12 @@ This contract has the following functions:
 [] - Set URI
 */
 
+// Allow the contract to give minting permission to TestQuestApp and us during testing.
 import "@openzeppelin/contracts/access/AccessControl.sol";
+// https://docs.openzeppelin.com/contracts/5.x/api/token/erc1155#ERC1155Supply
+// Extension of ERC1155 that adds tracking of total supply per id.
+// Useful for scenarios where Fungible and Non-fungible tokens have to be clearly identified.
+// Since we plan to have some unique items eventually, this is a good choice.
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
 /**
@@ -52,14 +57,13 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
 
     /**
      * @dev Constructor to set up the contract with default admin and minter roles.
-     * @param defaultAdmin The address to be assigned the default admin role.
      * @param minter The address to be assigned the minter role.
      * @param baseURI The base URI for metadata.
      */
-    constructor(address defaultAdmin, address minter, string memory baseURI) ERC1155(baseURI) {
-        _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
+    constructor(address minter, string memory baseURI) ERC1155(baseURI) {
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, minter);
-        _grantRole(URI_SETTER_ROLE, defaultAdmin);
+        _grantRole(URI_SETTER_ROLE, msg.sender);
 
         // Set predefined tier costs for each item
         _initializeTierCosts();

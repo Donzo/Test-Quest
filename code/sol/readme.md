@@ -111,7 +111,7 @@ The `Equipment1155.sol` contract is responsible for defining and managing equipm
 - **URI_SETTER_ROLE**: Addresses with this role can set the URI for the equipment metadata.
 
 ### Deployment:
-- The contract is deployed at `0x3A5a60bc87170AeC94e5DbFA1E7FC1395CE78bB0` on the Open Campus Codex.
+- The contract is deployed at `0x91d2595B8aF1b2778830308Be99ea30C30eFC4db` on the Open Campus Codex.
 
 ## Project Context
 

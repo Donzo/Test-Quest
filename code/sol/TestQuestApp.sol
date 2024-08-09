@@ -4,16 +4,17 @@ pragma solidity ^0.8.20;
 /*
 This contract has been deployed [] on Open Campus Codex at [].
 This contract has been granted MINTER access to [] TestGold ERC20 at 0xc2BC0B330D39F4380946a6bEAf951829B31FF887 
+This contract has been granted MINTER access to [] Equipment1155 ERC1155 at 0x91d2595B8aF1b2778830308Be99ea30C30eFC4db
 This contract has the following functions:
 [] Register User and mint them GOLD
-[] Allow user to buy equipment from Equipment.sol
+[] Allow user to buy equipment from Equipment1155.sol
 [] Register User, mint GOLD, and handle equipment purchases
 [] Users get a 25% discount when purchasing all three equipment items of the same tier in one transaction
 */
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./Gold.sol";
-import "./nft/Equipment.sol";
+import "./nft/Equipment1155.sol";
 
 // TestQuest App Progress
 // TestQuest V 0.1 : Register User and mint them GOLD
