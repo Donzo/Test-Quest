@@ -2,14 +2,22 @@
 pragma solidity ^0.8.20;
 
 /*
-This contract has been deployed [x] on Open Campus Codex at 0x91d2595B8aF1b2778830308Be99ea30C30eFC4db.
+This contract has been deployed [x] on Open Campus Codex at 0xFf1ADCEF75c4300A839Ab64dcd0Ba03FD03aCB5D.
 This contract has granted MINTER access to [] TestQuestApp.sol at [].
 This contract has the following functions:
 [x] - Add new items and tier costs
 [x] - Get tier costs
 [x] - Mint single token
 [x] - Mint multiple tokens
-[] - Set URI
+[x] - Set URI to github for now
+[x] - Use totalSupply to track existing items and support adding new ones.
+
+Version History:
+V1.0: Initial version with fixed IDs and tiers.
+V2.0: Added support for dynamic addition of new items and tiers.
+V2.1: Added getter function for querying tier costs.
+V2.2: Initialized with 15 predefined items and tier costs, with support for adding new items.
+V2.3: Replaced `existingItems` mapping with `totalSupply` check for item existence, streamlined item addition.
 */
 
 // Allow the contract to give minting permission to TestQuestApp and us during testing.
@@ -23,18 +31,12 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 /**
  * @title Equipment1155
  * @dev ERC1155 contract for minting and managing equipment items for the TestQuest app.
- * Version History:
- * V1.0: Initial version with fixed IDs and tiers.
- * V2.0: Added support for dynamic addition of new items and tiers.
- * V2.1: Added getter function for querying tier costs.
- * V2.2: Initialized with 15 predefined items and tier costs, with support for adding new items.
  */
 contract Equipment1155 is ERC1155Supply, AccessControl {
     bytes32 public constant URI_SETTER_ROLE = keccak256("URI_SETTER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     mapping(uint256 => mapping(uint256 => uint256)) public tierCosts; // Cost of each tier for each item
-    mapping(uint256 => bool) public existingItems; // Track existing items
 
     // Item types (Equipment IDs)
     uint256 public constant WAND_TIER_1 = 1;
@@ -61,12 +63,50 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
      * @param baseURI The base URI for metadata.
      */
     constructor(address minter, string memory baseURI) ERC1155(baseURI) {
+        // Donzo mints from 0x00F8306C110058b12c00b478986bc3627346671C
+        // BaseURI currently: "https://raw.githubusercontent.com/Donzo/Test-Quest/main/code/sol/nft/"
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender); // revoke this role after initial minting?
         _grantRole(MINTER_ROLE, minter);
         _grantRole(URI_SETTER_ROLE, msg.sender);
 
-        // Set predefined tier costs for each item
+        // Set predefined tier costs for the Open Campus 15 items (5 wands, 5 armors, 5 wings)
         _initializeTierCosts();
+
+        // Mint initial items for testing
+        _mintInitialItems();
+    }
+
+    /**
+     * @dev Internal function to mint initial items for testing.
+     */
+    function _mintInitialItems() internal {
+        // Mint initial batch of wands
+        uint256[] memory wandIds = new uint256[](5);
+        uint256[] memory wandAmounts = new uint256[](5);
+        for (uint256 i = 0; i < 5; i++) {
+            wandIds[i] = i + 1;
+            wandAmounts[i] = 5;
+        }
+        mintBatch(msg.sender, wandIds, wandAmounts, "");
+
+        // Mint initial batch of armors
+        uint256[] memory armorIds = new uint256[](5);
+        uint256[] memory armorAmounts = new uint256[](5);
+        for (uint256 i = 0; i < 5; i++) {
+            armorIds[i] = i + 6;
+            armorAmounts[i] = 5;
+        }
+        mintBatch(msg.sender, armorIds, armorAmounts, "");
+
+        // Mint initial batch of wings
+        uint256[] memory wingIds = new uint256[](5);
+        uint256[] memory wingAmounts = new uint256[](5);
+        for (uint256 i = 0; i < 5; i++) {
+            wingIds[i] = i + 11;
+            wingAmounts[i] = 5;
+        }
+        mintBatch(msg.sender, wingIds, wingAmounts, "");
     }
 
     /**
@@ -93,19 +133,6 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
         tierCosts[WINGS_TIER_3][3] = 40;
         tierCosts[WINGS_TIER_4][4] = 80;
         tierCosts[WINGS_TIER_5][5] = 160;
-
-        // Mark existing items
-        for (uint256 i = 1; i <= 15; i++) {
-            existingItems[i] = true;
-        }
-    }
-
-    /**
-     * @dev Sets a new URI for all token types, by relying on the token type ID substitution mechanism.
-     * @param newuri The new URI string.
-     */
-    function setURI(string memory newuri) public onlyRole(URI_SETTER_ROLE) {
-        _setURI(newuri);
     }
 
     /**
@@ -114,14 +141,12 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
      * @param costs The costs for each tier of the new item.
      */
     function addNewItem(uint256 itemId, uint256[] memory costs) public onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(!existingItems[itemId], "Item already exists");
+        require(totalSupply(itemId) == 0, "Item already exists"); // Check if item exists by using totalSupply
         require(costs.length == 5, "Must provide exactly 5 tier costs");
 
         for (uint256 i = 0; i < costs.length; i++) {
             tierCosts[itemId][i + 1] = costs[i];
         }
-
-        existingItems[itemId] = true;
     }
 
     /**
@@ -131,7 +156,7 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
      * @return The cost of the specified tier for the item.
      */
     function getTierCost(uint256 itemId, uint256 tier) public view returns (uint256) {
-        require(existingItems[itemId], "Item does not exist");
+        require(totalSupply(itemId) > 0, "Item does not exist"); // Check if item exists by using totalSupply
         require(tier > 0 && tier <= 5, "Invalid tier");
         return tierCosts[itemId][tier];
     }

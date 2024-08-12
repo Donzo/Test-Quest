@@ -1,6 +1,6 @@
 # TestQuest Smart Contracts Overview
 
-This document provides an overview of the smart contracts used in the TestQuest project, specifically `Gold.sol`, `Equipment1155`, `Characters.sol`, the deprecated initial draft contract `testquest.sol`, and the Tippi's hackathon masterpiece `TestQuestApp.sol`. These contracts are integral to the functioning of the TestQuest ecosystem on EduChain / Open Campus Codex, enabling secure and decentralized management of digital assets and user interactions. We began by focusing on elevating the Learner experience, but hope to soon integrate features that empower Teachers with curated Quiz & Test sets, as well as custom GPT prompts.
+This document provides an overview of the smart contracts used in the TestQuest project for the EDUChain * Open Campus. These contracts are for empowering our Learners and Teachers with secure and decentralized management of digital assets and user interactions. We began by focusing on elevating the Learner experience, but hope to soon integrate features that empower Teachers with curated Quiz & Test sets, as well as custom GPT prompts.
 
 ### Deployed Addresses
 
@@ -30,23 +30,6 @@ The `Gold.sol` contract is an ERC20 token contract that represents the in-game c
 ### Deployment:
 - The contract is deployed at `0xc2BC0B330D39F4380946a6bEAf951829B31FF887` on the Open Campus Codex.
 
-## DEPRECATED testquest.sol
-
-> V 0.1: Register users and mint GOLD. 
-
-The `testquest.sol` was the original first draft for TestQuestApp. The contract manages user registration and interaction with the GOLD token. It ensures that only authorized addresses can register new users and mint GOLD tokens for them.
-
-### Key Features:
-- **User Registration**: Allows authorized addresses to register new users.
-- **Minting GOLD**: Mints a predefined amount of GOLD tokens for newly registered users.
-- **Authorization**: Uses a modifier to restrict certain functions to authorized addresses only.
-
-### Roles:
-- **authorizedWallet**: The address that is authorized to register new users and mint GOLD tokens.
-
-### Deployment:
-- This contract was deployed and tested by Tippi at `0xbedc4032AAf4d431DD781128d48cFb6b95312244`.
-- The contract interacts with the GOLD token contract deployed at `0xc2BC0B330D39F4380946a6bEAf951829B31FF887`.
 
 ## TestQuestApp.sol
 
@@ -91,10 +74,11 @@ The `Characters.sol` contract is responsible for defining and managing character
 
 ## Equipment1155.sol
 
-> V 1.0: Initial version with fixed IDs and tiers.
-> V 2.0: Added support for dynamic addition of new items and tiers.
-> V 2.1: Added getter function for querying tier costs.
-> V 2.2: Initialized with 15 predefined items and tier costs, with support for adding new items.
+> V1.0: Initial version with fixed IDs and tiers.
+> V2.0: Added support for dynamic addition of new items and tiers.
+> V2.1: Added getter function for querying tier costs.
+> V2.2: Initialized with 15 predefined items and tier costs, with support for adding new items.
+> V2.3: Replaced `existingItems` mapping with `totalSupply` check for item existence, streamlined item addition by minting to msg.sender.
 
 The `Equipment1155.sol` contract is responsible for defining and managing equipment items within the TestQuest ecosystem. It allows for the creation of different equipment items with specific attributes and provides functionality to retrieve and update equipment information.
 
@@ -112,6 +96,8 @@ The `Equipment1155.sol` contract is responsible for defining and managing equipm
 
 ### Deployment:
 - The contract is deployed at `0x91d2595B8aF1b2778830308Be99ea30C30eFC4db` on the Open Campus Codex.
+- Progressively decentralize the metadata, first our Github, then our hosted server, then NFT.Storage etc
+- baseURI: "https://raw.githubusercontent.com/Donzo/Test-Quest/main/code/sol/nft/"
 
 ## Project Context
 
@@ -119,7 +105,7 @@ The TestQuest project aims to elevate learners and teachers by integrating AI-po
 
 ## TODO List
 
-1. **Implement Additional Smart Contracts**: Develop and deploy additional smart contracts for managing other in-game assets and interactions.
+1. **Feedback from You!**: Get feedback from the judges, coaches, and mentors at OpenCampus, HackQuest, and EDUChain about what you think!
 2. **Enhance Security**: Conduct thorough security audits and implement additional security measures as needed.
 3. **User Interface Integration**: Integrate the smart contracts with the frontend UI to provide a seamless user experience.
 4. **Testing and Debugging**: Perform extensive testing and debugging to ensure the contracts function as intended.
@@ -133,3 +119,21 @@ The TestQuest project aims to elevate learners and teachers by integrating AI-po
 
 By following this roadmap, we can ensure that the TestQuest project remains secure, scalable, and user-friendly, providing a valuable platform for learners and teachers alike.
 
+#### Iterative development, like ./thoughts.md
+## DEPRECATED testquest.sol
+
+> V 0.1: Register users and mint GOLD. 
+
+The `testquest.sol` was the [original first draft](./drafts/testquest.sol) for TestQuestApp. The contract manages user registration and interaction with the GOLD token. It ensures that only authorized addresses can register new users and mint GOLD tokens for them.
+
+### Key Features:
+- **User Registration**: Allows authorized addresses to register new users.
+- **Minting GOLD**: Mints a predefined amount of GOLD tokens for newly registered users.
+- **Authorization**: Uses a modifier to restrict certain functions to authorized addresses only.
+
+### Roles:
+- **authorizedWallet**: The address that is authorized to register new users and mint GOLD tokens.
+
+### Deployment:
+- This contract was deployed and tested by Tippi at `0xbedc4032AAf4d431DD781128d48cFb6b95312244`.
+- The contract interacts with the GOLD token contract deployed at `0xc2BC0B330D39F4380946a6bEAf951829B31FF887`.
