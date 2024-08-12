@@ -1,20 +1,34 @@
 <script>
-
-		function popAlert(which, positive){
-			setAlertMsg(which);
+		function scrollToTop() {
+			window.scrollTo({
+				top: 0, 
+				behavior: 'smooth' // This makes the scrolling smooth
+			});
+		}
+		function popAlert(which, dataMsg){
+			if (dataMsg){
+				setAlertMsg(which, dataMsg);
+			}
+			else{
+				setAlertMsg(which);	
+			}
+			scrollToTop();
 			showAlertBox();
 		}
 		function popConfirm(which){
 			setConfirmMsg(which);
 			showConfirmBox();
+			scrollToTop();
 		}
 		function popMiningBox(which, data){
 			setMiningBoxMsg(which, data);
-			showMiningBoxBox();	
+			showMiningBoxBox();
+			scrollToTop();
 		}
 		function popInputBox(which){
 			setInputBoxMsg(which);
 			showInputBox();
+			scrollToTop();
 		}
 	
 		//These Control Visibility of System Message Boxes
@@ -74,7 +88,7 @@
 				alert('perform action 1 after closing mining box');;
 			}
 			else{
-				alert('perform general action after closing mining box');
+				//alert('perform general action after closing mining box');
 			}
 			
 			
@@ -90,7 +104,7 @@
 	
 	
 		//These Control Messages and Button Actions
-		function setAlertMsg(num){
+		function setAlertMsg(num, data){
 			var title = document.getElementById("alertBoxTitle");
 			var body = document.getElementById("alertBoxBody");
 			var button = document.getElementById("sysAlertButtonDiv");
@@ -127,10 +141,24 @@
 				title.innerHTML = "Request Waiting";
 				body.innerHTML = "You already have a pending network change request. Check your wallet.";
 			}
-			//Request Already Pending
 			else if (num == 7){
 				title.innerHTML = "You Have No Credits";
 				body.innerHTML = "You cannot go on a quest until you have a game credit. Pass tests to earn game credits.";
+			}
+			//Gold Minting Failed
+			else if (num == 8){
+				if (data){
+					title.innerHTML = "Gold Minting Failed";
+					body.innerHTML = data + "<br/><br/>Please try the transaction again...";
+				}
+				else{
+					title.innerHTML = "Gold Minting Failed for Some Reason";
+					body.innerHTML = "Please try the transaction again...";
+				}
+			}
+			else if (num == 9){
+				title.innerHTML = "You Have No Gold Coins";
+				body.innerHTML = "You cannot MINT gold coins until you earn them. Try collecting some coins on a quest.";
 			}
 		}
 		function setConfirmMsg(num){
@@ -184,13 +212,24 @@
 			/*Example Prompt - not currently used */
 			
 			if (num == 1){
-				title.innerHTML = "Borrowing GHO and Sending it Across Chain";
-				var slicedObj = data.slice(0, 10);
-				slicedObj += "...";
-				var link = "https://sepolia.etherscan.io/tx/" + data;
-				body.innerHTML = `You are borrowing GHO from AAVE and using CCIP to send it from Ethereum Sepolia to Arbitrum Sepolia...<br/><br/>Transaction <a href='${link}' target='_blank'>${slicedObj}</a> is mining.`;
+				title.innerHTML = "Minting Gold Coins...";
+				//var slicedObj = data.slice(0, 10);
+				//slicedObj += "...";
+				//var link = "https://sepolia.etherscan.io/tx/" + data;
+				body.innerHTML = `You are MINTING your Gold Coins...<br/><br/>The transaction is mining.`;
 				loadingWheel.innerHTML = loader;
 			}
+			else if (num == 2){
+				var slicedObj = data.slice(0, 10);
+				slicedObj += "...";
+				var link = "https://opencampus-codex.blockscout.com/tx/" + data;
+				title.innerHTML = "Gold Minted!";
+				body.innerHTML = `Your Gold Coins have been minted and should now be in your wallet! <br/><br/>Transaction Hash: <a href='${link}' target='_blank'>${slicedObj}</a>`;
+				loadingWheel.innerHTML = loaded;
+				setTimeout("closeMiningBoxBox()", 4000); //Close mining box after 4 seconds.
+			}
+			
+			
 			
 		}
 	</script>

@@ -1,3 +1,7 @@
+<?php
+	//Start the session
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +13,9 @@
 		//CSS
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/css/style.php";
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/css/sys-msgs.php";
+		
+		//JS
+		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/php/globals.php";
 		
 		//JS
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/js/globals.php";
@@ -34,6 +41,7 @@
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-03c.php";
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-03d.php";
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-03e.php";
+		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-03f.php";
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-04.php";
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-05.php";
 		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/html/view-06.php";

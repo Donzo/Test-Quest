@@ -1,10 +1,10 @@
 <?php
 	
-	if(!defined('AmServerSide')) {
+	/*if(!defined('AmServerSide')) {
 		die('Direct access not permitted');
-	}
+	}*/
 	//https://github.com/drlecks/Simple-Web3-Php
-	
+	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/secrets-test-quest.php';
 	require_once ($_SERVER['DOCUMENT_ROOT'] . "/web3-serverside/vendor/autoload.php");
 	
 	use stdClass; 
@@ -14,13 +14,13 @@
 	use SWeb3\SWeb3_Contract;
 	use phpseclib3\Math\BigInteger as BigNumber;
 	
-	$providerUrl = "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey=NODEKEYHERE"; 
+	$providerUrl = "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey=AtPl6nKywkMVruCp112eU8LfAnSdRD8R76tzUgWAgP__"; 
 
 	//Create an instance of SWeb3 with the provider URL
 	$sweb3 = new SWeb3($providerUrl);
 
-	$from_address = 'publickey';
-	$from_address_private_key = 'privkey';
+	$from_address = '0x00f8306c110058b12c00b478986bc3627346671c';
+	$from_address_private_key = $sysWalletPrivateKey;
 	$sweb3->setPersonalData($from_address, $from_address_private_key);
 	
 	$sweb3->chainId = '656476';	//Open Campus EDU 
@@ -41,10 +41,10 @@
 	try {
 		$sendParams = [ 
 			'from' => $from_address,  
-			'to' => $walletAddress, 
-			'gasLimit' => 210000,
+			'to' => '0x44f751ead3D88b04a57C298789FCC26632e8179b', //$walletAddress, 
+			'gasLimit' => 2100000,
 			'gasPrice' => $adjustedGasPriceHex, //Make sure to use the adjustedGasPriceHex variable
-			'value' => Utils::toWei('0.1', 'ether'), //Converting 0.001 ETH to Wei
+			'value' => Utils::toWei('0.01', 'ether'), //Converting 0.001 ETH to Wei
 			//'nonce' => $sweb3->personal->getNonce() //Fetching the nonce
 			'nonce' => $sweb3->personal->getNonce()  
 		];
@@ -53,7 +53,7 @@
 
 		if (isset($result->result)) {
 			//If the transaction was successful, update the database
-			$stmt = $my_Db_Connection->prepare("UPDATE users SET arbi_test_eth_sent = TRUE WHERE account = :wallet");
+			/*$stmt = $my_Db_Connection->prepare("UPDATE users SET arbi_test_eth_sent = TRUE WHERE account = :wallet");
 			$stmt->bindParam(':wallet', $walletAddress );
 			$stmt->execute();
 
@@ -74,16 +74,18 @@
 			}
 
 			header('Content-Type: application/json');
-			echo json_encode($response);
+			echo json_encode($response);*/
+			echo 'success!';
 		}
 		else{
 			print_r($result); //If the transaction failed, print the result for debugging
+			echo "gasPriceDecimal = " . $gasPriceDecimal;
 		}
 	}
 	catch (Exception $e) {
 		$response = [
 			'success' => false,
-			'message' => "Error sending transaction: " . $e->getMessage()
+			'message' => "Error sending transaction: adjustedGasPrice = " . $adjustedGasPrice . " " . $e->getMessage()
 		];
 		header('Content-Type: application/json');
 		echo json_encode($response);

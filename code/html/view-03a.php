@@ -12,13 +12,13 @@
 							Selecting Role for User <span class="usrAddress"></span>:
 						</div>
 						<div>
-							<button class="bigButton" onclick="loadStudentView()">Student</button>
+							<button class="bigButton green" onclick="loadStudentView()">Student</button>
 						</div>
 						<div>
-							<button class="bigButton" onclick="poofGone(currentView, 'view-03d', false)">Teacher</button>
+							<button class="bigButton red" onclick="poofGone(currentView, 'view-03d', false)">Teacher</button>
 						</div>
 						<div>
-							<button class="bigButton" onclick="poofGone(currentView, 'view-03e', false)">Judge</button>
+							<button class="bigButton blue" onclick="poofGone(currentView, 'view-03e', false)">Judge</button>
 						</div>
 					</div>
 				</div>

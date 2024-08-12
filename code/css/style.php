@@ -375,6 +375,33 @@
 			font-weight: bold;
 			color: #27AE60; /* Green color for positive feedback */
 		}
+		.item-box {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+			padding: 10px;
+			border: 1px solid #BDC3C7;
+			border-radius: 10px;
+			background-color: #ECF0F1;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}	
+		.item-image {
+			width: 100px;
+			height: 100px;
+			margin-right: 20px;
+		}
+		.item-description {
+			text-align: left;
+		}
+		.item-description h3 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			color: #2C3E50;
+		}
+		.item-description p {
+			margin: 5px 0;
+			color: #2C3E50;
+		}
 		/******************************************
 					RESPONSIVE CSS
 		*******************************************/

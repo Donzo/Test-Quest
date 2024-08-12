@@ -3,8 +3,8 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	include $_SERVER['DOCUMENT_ROOT']  . "/vendor/autoload.php";
+	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/secrets-test-quest.php';
 	
-	$yourApiKey = "INSERTKEY";
 
 	use Orhanerday\OpenAi\OpenAi;
 	

@@ -65,6 +65,7 @@
 		else{
 			poofGone("view-03a", "view-03c", false);
 		}
+		checkGoldTokenBalance();
 	}
 	function resetGlobals(){
 
@@ -108,9 +109,9 @@
 		//slicedObj += "...";
 		truncUsrNum = slicedObj;
 
-		// Find all spans with the class .usrAddress
+		//Find all spans with the class .usrAddress
 		var addressSpans = document.querySelectorAll('.usrAddress');
-		// Replace the innerHTML of each span
+		//Replace the innerHTML of each span
 		addressSpans.forEach(function(span) {
 				span.innerHTML = truncUsrNum;
 		});
@@ -145,6 +146,13 @@
 		var gradeLvlSpans = document.querySelectorAll('.usrGradeLvl');
 		gradeLvlSpans.forEach(function(span) {
 				span.innerHTML = usrGradeLvl;
+		});
+	}
+	//Update UI showing Coins Minted in Wallet
+	function updateCoinsInWalletDisp(tb){
+		const spans = document.querySelectorAll('.usrGoldCoinsMinted');
+		spans.forEach(span => {
+			span.textContent = tb;
 		});
 	}
 	function saveGradeLevel() {
@@ -202,7 +210,7 @@
 			correctStr = "";
 		}
 		
-		// Add the question number information
+		//Add the question number information
 		testInfoText += `<div id='test-info-hdr-02'><strong>Question #${currentQuestionNumber} of ${totalQuestions} ${correctStr}</strong>`;
 			
 		//Update the innerHTML of the test-info div
@@ -241,12 +249,12 @@
 
 		if (isCorrect) {
 			message.textContent = 'CORRECT';
-			message.style.color = '#2ECC71'; // Green color
+			message.style.color = '#2ECC71'; //Green color
 			img.src = '/images/check-mark.gif';
 		}
 		else{
 			message.textContent = 'INCORRECT';
-			message.style.color = '#E74C3C'; // Red color
+			message.style.color = '#E74C3C'; //Red color
 			img.src = '/images/cross-mark.gif';
 		}
 
@@ -327,8 +335,102 @@
 			popAlert(7);
 		}
 	}
-	function startQuest(){
-		alert('start quest now.')
+	function startQuest() {
+		var url = "/code/php/start-quest.php?wallet=" + window['userAccountNumber'];
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				window.location.href = '/game/';
+			}
+			else{
+				alert(data.message || 'Failed to start quest.');
+			}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+			alert('An unexpected error occurred.');
+		});
 	}
-	
+	function buyItems(){
+		poofGone(currentView, "view-03f", false);
+	}
+	function buyItem(which){
+		alert('buy item 1');
+	}
+	async function mintGold() {
+		if (1 > usrDataGoldCoins){
+			popAlert(9);
+			return;
+		}
+		var url = "/code/php/mint-gold.php?wallet=" + window['userAccountNumber'];
+		popMiningBox(1, "0x0x0x0x0x");
+		
+		try {
+			const response = await fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: 'account=' + encodeURIComponent(window['userAccountNumber'])
+			});
+
+			const data = await response.json();
+
+			if (data.success) {
+				popMiningBox(2, data.message);
+				usrDataGoldCoins = 0;
+				updateGoldCoinSpans();
+			}
+			else{
+				closeMiningBoxBox();
+				//alert('Error: ' + data.message + '\nPlease try the transaction again.'); //Show error message
+				popAlert(8, data.message);
+			}
+		}
+		catch(error) {
+			closeMiningBoxBox()
+			popAlert(8);
+		}
+	}
+	async function checkGoldTokenBalance() {
+		//Ensure Web3 is injected (e.g., by MetaMask)
+		if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
+			//Create Web3 instance
+			let web3 = new Web3(Web3.givenProvider || window.web3.currentProvider);
+
+			//ABI for ERC20 contract (only includes the necessary 'balanceOf' method)
+			const abi = [
+				{
+					"constant": true,
+					"inputs": [{"name": "_owner", "type": "address"}],
+					"name": "balanceOf",
+					"outputs": [{"name": "balance", "type": "uint256"}],
+					"type": "function"
+				}
+			];
+
+			try {
+				const goldTokenContract = new web3.eth.Contract(abi, goldContractAddress);
+				const userAccount = window['userAccountNumber'];
+				const balance = await goldTokenContract.methods.balanceOf(userAccount).call();
+				const tokenBalance = web3.utils.fromWei(balance, 'ether');
+				updateCoinsInWalletDisp(tokenBalance)				
+			}
+			catch (error){
+				console.error('Error checking token balance:', error);
+				alert('An error occurred while checking your token balance.');
+			}
+		}
+		else{
+			alert('Web3 provider is not detected. Please install MetaMask or another Web3 provider.');
+		}
+	}
+
+
 </script>

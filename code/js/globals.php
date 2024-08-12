@@ -29,8 +29,8 @@
 		var miningBoxActive = false;
 		
 		//ChatGPT
-		var userInput = "What is the capital of Illinois?";
-		var botPrompt = "You are a deranged travel guide. Respond to questions with angst."
+		var userInput = "";
+		var botPrompt = "You are a helpful quiz master."
 		var curClass = false;
 		var subject = false;
 		var topic = false;
@@ -45,9 +45,13 @@
 		//User Data
 		var usrDataExpPoints = false;
 		var usrDataGoldCoins = false;
+		var usrDataGoldCoinsMinted = 0;
 		var usrDataNumOfTsts = false;
 		var usrCredits = 0;
 		var usrGradeLvl = 5;
 		var usrGradeLvlNum = 5;
 		var newUsr = false;
+		
+		//CAs
+		var goldContractAddress = "<?php echo $goldContractAddress;?>";
 	</script>

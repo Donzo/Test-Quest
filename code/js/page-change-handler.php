@@ -227,7 +227,6 @@
 		}, 777);
 	}
 	function endTest(){
-		alert('test over');
 		poofGone("view-05", "view-06", false);
 		updateResultsSlide();
 	}

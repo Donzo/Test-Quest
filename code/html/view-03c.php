@@ -13,7 +13,8 @@
 						</div>
 						<div id="usrProfileData">
 							<p>Experience Points: <span class="usrExpPoints">0</span></p>
-							<p>Gold Coins: <span class="usrGoldCoins">0</span></p>
+							<p>Gold Coins Unminted: <span class="usrGoldCoins">0</span></p>
+							<p>Gold Coins Minted (In Wallet): <span class="usrGoldCoinsMinted">0</span></p>
 							<p>Number of Tests Taken: <span class="usrNumOfTsts">0</span></p>
 							<p>Game Credits: <span class="usrGameCredits">0</span></p>
 							<p>Grade Level: <span class="usrGradeLvl">5</span></p>
@@ -23,6 +24,12 @@
 						</div>
 						<div>
 							<button class="bigButton blue" onclick="confirmQuest()">Go On a Quest</button>
+						</div>
+						<div>
+							<button class="bigButton yellow" onclick="mintGold()">Mint Gold Coins</button>
+						</div>
+						<div>
+							<button class="bigButton orange" onclick="buyItems()">Buy Items</button>
 						</div>
 						<div>
 							<button class="smallButton grey" onclick="editUserDetails()">Edit Profile</button>

@@ -1,10 +1,8 @@
 <?php 
+	require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/secrets-test-quest.php';
 	$my_Db_Connection = NULL;
 	/*DB Credentials*/
-	$database = 'CONNECTION';
-	$password = 'INFO';
-	$servername = 'GOES';
-	$username = 'HERE';
+	
 	$sql = "mysql:host=$servername;dbname=$database;";
 		
 	$dsn_Options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];

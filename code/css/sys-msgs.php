@@ -2,13 +2,13 @@
 		/******************************************
 					SYSTEM MESSAGE BOXES CSS
 		*******************************************/
-		
-		#sysMsgBoxBG{
-			position: absolute;
+
+		#sysMsgBoxBG {
+			position: fixed;
 			top: 0;
-			height: 100%;
 			left: 0;
-			width: 100%;
+			height: 100vh;
+			width: 100vw;
 			background: rgba(0, 0, 0, 0.75); 
 			opacity: .85;
 			display: none;
