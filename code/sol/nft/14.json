@@ -1,0 +1,12 @@
+{
+    "name": "Wings - 4",
+    "description": "Tier 4, wings that boost your hover ability a lot.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/wings.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "ngel's Wings of Questing" },
+        { "trait_type": "Equipment Type", "value": "Wings" },
+        { "trait_type": "Boost", "value": "Hover" },
+        { "trait_type": "Tier", "value": "4" }
+    ]
+}

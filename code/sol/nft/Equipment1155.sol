@@ -2,15 +2,17 @@
 pragma solidity ^0.8.20;
 
 /*
-This contract has been deployed [x] on Open Campus Codex at 0xFf1ADCEF75c4300A839Ab64dcd0Ba03FD03aCB5D.
-This contract has granted MINTER access to [] TestQuestApp.sol at [].
+This contract has been deployed [x] and verified [x] on Open Campus Codex at 0x8875054C87E0AD3848bd25e3e92d74147cC053fE.
+This contract has granted MINTER access to [x] TestQuestApp.sol at 0x1BB300F5A90cf8AaF4C11800883dEF22432912ee.
 This contract has the following functions:
 [x] - Add new items and tier costs
 [x] - Get tier costs
 [x] - Mint single token
 [x] - Mint multiple tokens
-[x] - Set URI to github for now
+[x] - Set URI. Allow updatable URI so we can put on IPFS etc
 [x] - Use totalSupply to track existing items and support adding new ones.
+[x] - Use balanceOf or balanceOfBatch to find out what items the user has
+[x] - getUserTestQuestBalance will give us an array of that address balance of the 15 NFT.
 
 Version History:
 V1.0: Initial version with fixed IDs and tiers.
@@ -18,6 +20,7 @@ V2.0: Added support for dynamic addition of new items and tiers.
 V2.1: Added getter function for querying tier costs.
 V2.2: Initialized with 15 predefined items and tier costs, with support for adding new items.
 V2.3: Replaced `existingItems` mapping with `totalSupply` check for item existence, streamlined item addition.
+V2.4: Verified all functions, added getUserTestQuestBalance to return a users balance of the initial items
 */
 
 // Allow the contract to give minting permission to TestQuestApp and us during testing.
@@ -64,16 +67,15 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
      */
     constructor(address minter, string memory baseURI) ERC1155(baseURI) {
         // Donzo mints from 0x00F8306C110058b12c00b478986bc3627346671C
-        // BaseURI currently: "https://raw.githubusercontent.com/Donzo/Test-Quest/main/code/sol/nft/"
+        // https://www.testquest.app/nft/
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender); // revoke this role after initial minting?
         _grantRole(MINTER_ROLE, minter);
         _grantRole(URI_SETTER_ROLE, msg.sender);
 
-        // Set predefined tier costs for the Open Campus 15 items (5 wands, 5 armors, 5 wings)
+        // Set predefined tier costs for each item
         _initializeTierCosts();
 
-        // Mint initial items for testing
         _mintInitialItems();
     }
 
@@ -114,25 +116,51 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
      */
     function _initializeTierCosts() internal {
         // Wand tier costs
-        tierCosts[WAND_TIER_1][1] = 10;
-        tierCosts[WAND_TIER_2][2] = 20;
-        tierCosts[WAND_TIER_3][3] = 40;
-        tierCosts[WAND_TIER_4][4] = 80;
-        tierCosts[WAND_TIER_5][5] = 160;
+        // tierCosts[WAND_TIER_1][1] = 10;
+        // tierCosts[WAND_TIER_2][2] = 20;
+        // tierCosts[WAND_TIER_3][3] = 40;
+        // tierCosts[WAND_TIER_4][4] = 80;
+        // tierCosts[WAND_TIER_5][5] = 160;
 
-        // Armor tier costs
-        tierCosts[ARMOR_TIER_1][1] = 10;
-        tierCosts[ARMOR_TIER_2][2] = 20;
-        tierCosts[ARMOR_TIER_3][3] = 40;
-        tierCosts[ARMOR_TIER_4][4] = 80;
-        tierCosts[ARMOR_TIER_5][5] = 160;
+        // // Armor tier costs
+        // tierCosts[ARMOR_TIER_1][1] = 10;
+        // tierCosts[ARMOR_TIER_2][2] = 20;
+        // tierCosts[ARMOR_TIER_3][3] = 40;
+        // tierCosts[ARMOR_TIER_4][4] = 80;
+        // tierCosts[ARMOR_TIER_5][5] = 160;
 
-        // Wings tier costs
-        tierCosts[WINGS_TIER_1][1] = 10;
-        tierCosts[WINGS_TIER_2][2] = 20;
-        tierCosts[WINGS_TIER_3][3] = 40;
-        tierCosts[WINGS_TIER_4][4] = 80;
-        tierCosts[WINGS_TIER_5][5] = 160;
+        // // Wings tier costs
+        // tierCosts[WINGS_TIER_1][1] = 10;
+        // tierCosts[WINGS_TIER_2][2] = 20;
+        // tierCosts[WINGS_TIER_3][3] = 40;
+        // tierCosts[WINGS_TIER_4][4] = 80;
+        // tierCosts[WINGS_TIER_5][5] = 160;
+        for (uint256 i = 1; i <= 15; i++) {
+            for (uint256 j = 1; j <= 5; j++) {
+                uint256 cost = 10 * (2 ** (j - 1)); // 10, 20, 40, 80, 160
+                tierCosts[i][j] = cost;
+            }
+        }
+    }
+
+    /**
+     * @dev Returns a given user's balance batch for the initial 15 equipment items.
+     * @param user The address of the user to check balance of.
+     * @return balance15 array of 15 values representing the user's balance for the first 15 item IDs.
+     */
+    function getUserTestQuestBalance(address user) external view returns (uint256[15] memory balance15) {
+        address[] memory accounts = new address[](15);
+        uint256[] memory ids = new uint256[](15);
+        for (uint8 i = 0; i < 15; i++) {
+            accounts[i] = user;
+            ids[i] = i + 1;
+        }
+        uint256[] memory balances = balanceOfBatch(accounts, ids);
+        uint256[15] memory result;
+        for (uint8 i = 0; i < 15; i++) {
+            result[i] = balances[i];
+        }
+        return result;
     }
 
     /**
@@ -181,6 +209,10 @@ contract Equipment1155 is ERC1155Supply, AccessControl {
      */
     function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data) public onlyRole(MINTER_ROLE) {
         _mintBatch(to, ids, amounts, data);
+    }
+
+    function setURI(string memory newuri) public onlyRole(URI_SETTER_ROLE) {
+        _setURI(newuri);
     }
 
     /**

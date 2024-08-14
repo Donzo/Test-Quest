@@ -1,4 +1,4 @@
-# TestQuest Smart Contract Walkthrough
+# TestQuest Smart Contract Early Thoughts by Tippi
 
 Our frontend and smart contracts elevate Learners and Teachers with AI-powered tests with games and blockchain-enabled digital assets as rewards.
 

@@ -1,0 +1,12 @@
+{
+    "name": "Wings - 5",
+    "description": "Tier 5, wings that boost your agility ability: hover like no other.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/wings.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "Angel's Wings of Questing" },
+        { "trait_type": "Equipment Type", "value": "Wings" },
+        { "trait_type": "Boost", "value": "Hover" },
+        { "trait_type": "Tier", "value": "5" }
+    ]
+}

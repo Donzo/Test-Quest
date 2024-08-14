@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
+
+//deployed at 0xD46262fDaf22E4f252c3707f3440C67e8c1b28f9
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract Characters is AccessControl {
@@ -74,7 +76,7 @@ contract Characters is AccessControl {
         _grantRole(DEFINER_ROLE, msg.sender);
     }
 
-    function getCharacter(address user) public view returns (Character memory) {
+    function getCharacter(address user) public view returns (Character memory character) {
         uint8 characterId = currentCharacter[user];
         if (characterId == 1) {
             return wizard;
