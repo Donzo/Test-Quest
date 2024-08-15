@@ -34,6 +34,8 @@ TestQuest is a decentralized application that combines AI-generated tests, a fun
 
 In the future, we envision custom curriculums created by teachers and custom games to further enhance the learning experience.
 
+![screenshot of the app](./images/screenshot-game.png)
+
 ## **How we built it**
 
 We built TestQuest using a combination of Donzo the Wizard's expertise, smart contracts, and AI technology:
@@ -49,15 +51,21 @@ Key contracts include:
 - [Equipment1155.sol](https://github.com/Donzo/Test-Quest/blob/main/code/sol/nft/Equipment1155.sol): An ERC1155 contract for managing equipment items.
 - [TestQuestApp.sol](https://github.com/Donzo/Test-Quest/blob/main/code/sol/TestQuestApp.sol): The main application contract that handles user registration, equipment purchases, and tier upgrades.
 
-Donzo's contributions were pivotal in ensuring the smooth operation of the platform, from the backend infrastructure to the engaging game mechanics that keep learners motivated. His work on the PHP-based judges page and other backend components can be seen in files like [view-03e.php](https://github.com/Donzo/Test-Quest/blob/main/code/html/view-03e.php).
+![screenshot of the app](./images/screenshot-donzo.png)
+
+Donzo's contributions were pivotal in ensuring the smooth operation of the platform, from the backend infrastructure to the engaging game mechanics that keep learners motivated. His work on the PHP-based judges page and other backend components can be seen in files like [view-03f.php](https://github.com/Donzo/Test-Quest/blob/main/code/html/view-03f.php).
 
 ## **Challenges we ran into**
+
+![screenshot of the app](./images/screenshot-badmath.png)
 
 One of the main challenges was ensuring seamless integration between the AI-generated curriculum and the blockchain-based reward system. We also had to manage access control effectively, ensuring that only authorized users could interact with certain functions. Additionally, designing a game that is both fun and educational required careful balancing.
 
 ## **Accomplishments that we're proud of**
 
 We are proud of successfully integrating AI-generated tests with blockchain-based rewards. Our platform not only makes learning fun but also provides tangible rewards that enhance the gameplay experience. We implemented a robust access control system using OpenZeppelin's libraries and created a decentralized application that securely manages digital assets and user interactions.
+
+![armor and wings](/images/armor-and-wings.png)
 
 ## **What we learned**
 
@@ -69,6 +77,8 @@ Next, we plan to expand our platform to support custom curriculums created by te
 
 By following this roadmap, we can ensure that TestQuest remains secure, scalable, and user-friendly, providing a valuable platform for learners and teachers alike.
 
-## What's Next for You?
+## [What's Next for You?](https://testquest.app/)
+
+![important links for judges, thanks gpt!](./images/links_icon.png)
 
 [Try out our app!](https://testquest.app/) and give us feedback!
