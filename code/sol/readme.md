@@ -5,8 +5,11 @@ This document provides an overview of the smart contracts used in the TestQuest 
 ### Deployed Addresses
 
 Gold.sol: 0xc2BC0B330D39F4380946a6bEAf951829B31FF887
+
 Equipment1155.sol: 0x8875054C87E0AD3848bd25e3e92d74147cC053fE
+
 Characters.sol: 0xD46262fDaf22E4f252c3707f3440C67e8c1b28f9
+
 TestQuestApp.sol: 0x1BB300F5A90cf8AaF4C11800883dEF22432912ee
 
 ## Gold.sol
