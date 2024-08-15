@@ -41,9 +41,10 @@ In the future, we envision custom curriculums created by teachers and custom gam
 We built TestQuest using a combination of Donzo the Wizard's expertise, smart contracts, and AI technology:
 
 - **Donzo the Wizard**: Donzo played a crucial role in developing the backend and frontend components, ensuring seamless integration between the AI-generated curriculum and the blockchain-based reward system. He also worked on the game mechanics, making the game engaging and rewarding for learners.
-- **Smart Contracts**: The core contracts are written in Solidity and deployed on the Open Campus Codex. We used OpenZeppelin's libraries for AccessControl and ERC1155 standards to manage roles and digital assets.
-- **AI-Generated Curriculum**: Our backend generates personalized quizzes using AI, ensuring that each learner receives a unique and challenging test.
+- **Smart Contracts by Tippi**: The core contracts are written in Solidity and deployed on the Open Campus Codex. Tippi used OpenZeppelin's libraries for AccessControl, ERC20, and ERC1155 standards to manage roles and provide our users with secure and decentralized digital assets.
+- **AI-Generated Curriculum**: Our backend generates personalized quizzes using AI, ensuring that each learner receives a unique and challenging test as well as feedback.
 - **Game Mechanics**: The game is designed to be engaging and rewarding, with digital assets (GOLD) that can be used to purchase equipment and improve gameplay.
+- **Readme Like Whoa**: Tippi made layers of iterative and informative technical writing.
 
 Key contracts include:
 
@@ -53,7 +54,7 @@ Key contracts include:
 
 ![screenshot of the app](./images/screenshot-donzo.png)
 
-Donzo's contributions were pivotal in ensuring the smooth operation of the platform, from the backend infrastructure to the engaging game mechanics that keep learners motivated. His work on the PHP-based judges page and other backend components can be seen in files like [view-03f.php](https://github.com/Donzo/Test-Quest/blob/main/code/html/view-03f.php).
+Donzo's contributions were pivotal in ensuring the smooth operation of the platform, from the backend infrastructure to the engaging game mechanics that keep learners motivated. His work on the PHP integrating web3 with other backend components can be seen in files like [view-03f.php](https://github.com/Donzo/Test-Quest/blob/main/code/html/view-03f.php).
 
 ## **Challenges we ran into**
 
