@@ -28,7 +28,7 @@ In the modern educational landscape, finding effective ways to engage learners a
 
 TestQuest is a decentralized application that combines AI-generated tests, a fun and challenging game, and blockchain-based rewards to create a unique learning experience. Here's how it works:
 
-1. **Test**: Our AI-generated curriculum provides personalized quizzes that give immediate feedback. If learners score more than 50%, they earn credits to play our game.
+1. **Test**: Our AI-generated curriculum provides personalized quizzes that give immediate feedback. Successfully complete tests and they are awarded a game credit which they can use to go on our Quest game.
 2. **Quest**: The game is designed to be fun and challenging, lasting just a few minutes. Players collect digital assets (GOLD) which they can use to purchase equipment, enhancing their gameplay.
 3. **Repeat**: This cycle incentivizes continuous learning, as the only way to play the game is by taking tests. Learners receive feedback and can choose their own learning paths, creating an efficient and effective educational system with on-chain verification of their progress.
 
