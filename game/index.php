@@ -43,12 +43,12 @@
 				</html>';
 		exit;
 	}
-
 	//Clear the spent credit.
 	unset($_SESSION['readyToPlay']);
 	//Set game session variables
 	$_SESSION['gameLive'] = true;
 	$_SESSION['gameTime'] = time();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,7 +69,16 @@
 		} 
 	
 	?-->
-
+	<?php
+		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/php/globals.php";		
+		require_once $_SERVER['DOCUMENT_ROOT'] . "/code/js/globals.php";
+	?>
+	<script>
+		<?php
+			//WEB3JS INTERFACE CODE
+			require_once $_SERVER['DOCUMENT_ROOT'] . "/code/js/web3js/web3.min.js";
+		?>
+	</script>
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 	<style>
@@ -128,7 +137,7 @@
 	
 	<!--Disable the Backspace Button-->
 	<script type="text/javascript">
-		    function killBackSpace(e) {
+			function killBackSpace(e) {
 			   e = e ? e : window.event;
 			   var t = e.target ? e.target : e.srcElement ? e.srcElement : null;
 			   if (t && t.tagName && (t.type && /(password)|(text)|(file)/.test(t.type.toLowerCase())) || t.tagName.toLowerCase() == 'textarea')
@@ -140,13 +149,13 @@
 				  return false;
 			   };
 			   return true;
-		    };
+			};
 		 
-		    if (typeof document.addEventListener != 'undefined')
+			if (typeof document.addEventListener != 'undefined')
 			   document.addEventListener('keydown', killBackSpace, false);
-		    else if (typeof document.attachEvent != 'undefined')
+			else if (typeof document.attachEvent != 'undefined')
 			   document.attachEvent('onkeydown', killBackSpace);
-		    else {
+			else {
 			   if (document.onkeydown != null) {
 				  var oldOnkeydown = document.onkeydown;
 				  document.onkeydown = function(e) {
@@ -157,7 +166,7 @@
 		 
 			   else
 				  document.onkeydown = killBackSpace;
-		    }
+			}
 	</script>
 	
 	<link href="https://fonts.googleapis.com/css?family=Fredoka" rel="stylesheet">
@@ -196,4 +205,79 @@
 <body>
 	<canvas id="canvas"><font color="#FEFF04"><center>You are using an outdated browser. Why don't you download <a href='http://www.google.com/chrome'>Chrome</a>?</center></font></canvas>
 </body>
+<script>
+	// Get the user account number from the PHP session and set it in the JavaScript variable
+	window['userAccountNumber'] = "<?php echo $_SESSION['account']; ?>";
+	console.log('User Account:', window['userAccountNumber']);
+	
+	console.log('NFT Contract Address:', nftItemsContractAddress);
+	
+	async function checkUserEquipmentBalance() {
+		if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
+			let web3 = new Web3(Web3.givenProvider || window.web3.currentProvider);
+
+			const abi = [
+				{
+					"constant": true,
+					"inputs": [
+						{"name": "user", "type": "address"}
+					],
+					"name": "getUserTestQuestBalance",
+					"outputs": [
+						{
+							"name": "balance15",
+							"type": "uint256[15]"
+						}
+					],
+					"type": "function",
+					"stateMutability": "view"
+				}
+			];
+
+			try {
+				const equipmentContract = new web3.eth.Contract(abi, nftItemsContractAddress);
+				const userAccount = window['userAccountNumber'];
+
+				// Call getUserTestQuestBalance to get the balance array for all 15 items
+				const balanceArray = await equipmentContract.methods.getUserTestQuestBalance(userAccount).call();
+
+				// Assuming we want to check for the first three items (Wand, Armor, Wings)
+				const hasItems = [
+					balanceArray[0] > 0, // Wand
+					balanceArray[5] > 0, // Armor
+					balanceArray[10] > 0 // Wings
+				];
+
+				console.log(`User has items: ${hasItems}`);
+				return hasItems; // Example: [true, true, false] if the user has wand, armor, but no wings
+			}
+			catch(error){
+				console.error('Error checking equipment balance:', error);
+				return [false, false, false]; // Default to false if an error occurs
+			}
+		}
+		else{
+			alert('Web3 provider is not detected. Please install MetaMask or another Web3 provider.');
+			return [false, false, false]; // Default to false if Web3 is not detected
+		}
+	}
+	
+	async function setGameUpgrades() {
+		const equipmentStatus = await checkUserEquipmentBalance();
+
+		if (equipmentStatus.length === 3) {
+			ig.game.wandUpgrade = equipmentStatus[0];
+			ig.game.armorUpgrade = equipmentStatus[1];
+			ig.game.wingUpgrade = equipmentStatus[2];
+		}
+		else{
+			console.error('Unexpected result from checkUserEquipmentBalance');
+		}
+	}
+
+	setTimeout(setGameUpgrades, 1000);
+
+</script>
+
+
 </html>

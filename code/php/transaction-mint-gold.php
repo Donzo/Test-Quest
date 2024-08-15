@@ -33,7 +33,7 @@
 	$contract = new SWeb3_Contract($sweb3, $contractAddress, $contractABI);
 
 	//Set the mint parameters
-	$toAddress = '0x44f751ead3D88b04a57C298789FCC26632e8179b';
+	$toAddress = $walletAddress;
 	$goldCoinsToStr = strval($goldCoins);
 	$amount = Utils::toWei($goldCoinsToStr, 'ether'); // Adjust the amount as needed
 

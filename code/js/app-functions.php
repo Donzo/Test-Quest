@@ -17,6 +17,9 @@
 		if (data.status === 'new_user') {
 			console.log("This is a new user.");
 			newUsr = true;
+			
+			//Call the contract function to give some EDU
+			
 		}
 		else if (data.status === 'existing_user') {
 			console.log("This is a returning user.");
@@ -295,11 +298,15 @@
 		document.getElementById('results-details').innerHTML = resultsDetails;
 		document.getElementById('results-summary').innerHTML = resultsSummary;
 		
-		var addCredit = false;
+		var addCredit = true; //Just give the user the credit for test purposes
 		
+		//Later we can award credits if they pass the threshold
+		//var addCredit = false;
+		/*
 		if (percentageScore >= passingThreshold){
 			addCredit = true;
 		}
+		*/
 		usrDataNumOfTsts++;
 		
 		//Fetch request to update the database
@@ -360,9 +367,6 @@
 	function buyItems(){
 		poofGone(currentView, "view-03f", false);
 	}
-	function buyItem(which){
-		alert('buy item 1');
-	}
 	async function mintGold() {
 		if (1 > usrDataGoldCoins){
 			popAlert(9);
@@ -386,6 +390,8 @@
 				popMiningBox(2, data.message);
 				usrDataGoldCoins = 0;
 				updateGoldCoinSpans();
+				updateCoinsInWalletDisp("...")	
+				setTimeout(checkGoldTokenBalance, 3000);
 			}
 			else{
 				closeMiningBoxBox();
@@ -420,6 +426,7 @@
 				const userAccount = window['userAccountNumber'];
 				const balance = await goldTokenContract.methods.balanceOf(userAccount).call();
 				const tokenBalance = web3.utils.fromWei(balance, 'ether');
+				usrDataGoldCoinsMinted = tokenBalance;
 				updateCoinsInWalletDisp(tokenBalance)				
 			}
 			catch (error){
@@ -431,6 +438,147 @@
 			alert('Web3 provider is not detected. Please install MetaMask or another Web3 provider.');
 		}
 	}
+	async function checkGoldTokenAllowance(spendAmount) {
+		if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
+
+			let web3 = new Web3(Web3.givenProvider || window.web3.currentProvider);
+
+			const abi = [
+				{
+					"constant": true,
+					"inputs": [
+						{"name": "_owner", "type": "address"},
+						{"name": "_spender", "type": "address"}
+					],
+					"name": "allowance",
+					"outputs": [{"name": "remaining", "type": "uint256"}],
+					"type": "function"
+				},
+				{
+					"constant": false,
+					"inputs": [
+						{"name": "_spender", "type": "address"},
+						{"name": "_value", "type": "uint256"}
+					],
+					"name": "approve",
+					"outputs": [{"name": "success", "type": "bool"}],
+					"type": "function"
+				}
+			];
+
+			try {
+				const goldTokenContract = new web3.eth.Contract(abi, goldContractAddress);
+				const userAccount = window['userAccountNumber'];
+
+				//Check the current allowance
+				const allowance = await goldTokenContract.methods.allowance(userAccount, nftContractAddress).call();
+
+				//Convert the spendAmount to the appropriate units (assuming it's in ether units)
+				const spendAmountInWei = web3.utils.toWei(spendAmount.toString(), 'ether');
+
+				if (parseInt(allowance) >= parseInt(spendAmountInWei)) {
+					console.log(`Allowance is sufficient: ${allowance}`);
+					return true;
+				}
+				else{
+					console.log(`Allowance is insufficient: ${allowance}`);
+					popAlert(10);
+
+					// Request approval
+					const approval = await goldTokenContract.methods.approve(nftContractAddress, spendAmountInWei)
+					.send({ from: userAccount });
+
+					if (approval) {
+						popAlert(11);
+						return true;
+					}
+				}
+			}
+			catch (error) {
+				popAlert(12);
+				console.error('Error checking or approving token allowance:', error);
+				return false;
+			}
+		}
+		else{
+			popAlert(13);
+			return false;
+		}
+	}
+	async function mintEquipment(itemType) {
+		//Check Coin Amount
+		if (usrDataGoldCoinsMinted < 10){
+			if (usrDataGoldCoins >= 10){
+				popAlert(16);
+			}
+			else{
+				popAlert(17);
+			}
+			return;
+		}
+		//Check Approval
+		var readyToMint = await checkGoldTokenAllowance('10');
+		if (!readyToMint) {
+			popAlert(10);
+			return;
+		}
+
+		if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
+			let web3 = new Web3(Web3.givenProvider || window.web3.currentProvider);
+
+			var abi = [
+				{
+					"constant": false,
+					"inputs": [
+						{"name": "itemId", "type": "uint256"}
+					],
+					"name": "purchaseItem",
+					"outputs": [],
+					"type": "function"
+				}
+			];
+
+			try{
+				var testQuestContract = new web3.eth.Contract(abi, nftContractAddress); // Assuming nftContractAddress is the address of your TestQuestApp contract
+				var userAccount = window['userAccountNumber'];
+
+				// Define the item IDs for wings, armor, and wand
+				var itemIds = {
+					'wand': 1, 
+					'armor': 6, 
+					'wings': 11
+				};
+			
+				// Ensure the itemType is valid
+				if (!itemIds.hasOwnProperty(itemType)) {
+					console.error('Invalid item type requested.');
+					return;
+				}
+				
+				var itemId = itemIds[itemType];
+
+				var gasEstimate = await testQuestContract.methods.purchaseItem(itemId).estimateGas({ from: userAccount });
+				if (gasEstimate < 500000){
+					gasEstimate = 500000;
+				}
+				
+				await testQuestContract.methods.purchaseItem(itemId)
+					.send({ from: userAccount, gas: gasEstimate });
+
+					console.log(`Successfully purchased item with ID ${itemId} for account ${userAccount}`);
+					popMiningBox(4, itemType);
+					checkGoldTokenBalance();
+				}
+				catch (error) {
+					console.error('Error purchasing equipment:', error);
+					popAlert(15, itemType);
+				}
+			}
+			else{
+				popAlert(13);
+			}
+		}
+		
 
 
 </script>

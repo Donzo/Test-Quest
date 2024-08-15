@@ -1,0 +1,12 @@
+{
+    "name": "Wings - 2",
+    "description": "Tier 2, wings that boost your hover ability a little more.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/wings.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "el's Wings of Questing" },
+        { "trait_type": "Equipment Type", "value": "Wings" },
+        { "trait_type": "Boost", "value": "Hover" },
+        { "trait_type": "Tier", "value": "2" }
+    ]
+}

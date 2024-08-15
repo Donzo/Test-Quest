@@ -1,0 +1,12 @@
+{
+    "name": "Armor - 1",
+    "description": "Tier 1, armor that boosts your defense.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/armor.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "ht's Armor of Questing" },
+        { "trait_type": "Equipment Type", "value": "Armor" },
+        { "trait_type": "Boost", "value": "Defense" },
+        { "trait_type": "Tier", "value": "1" }
+    ]
+}

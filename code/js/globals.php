@@ -54,4 +54,6 @@
 		
 		//CAs
 		var goldContractAddress = "<?php echo $goldContractAddress;?>";
+		var nftContractAddress = "<?php echo $nftContractAddress;?>";
+		var nftItemsContractAddress = "<?php echo $nftItemsContractAddress;?>";
 	</script>

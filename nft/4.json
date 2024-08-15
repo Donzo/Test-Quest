@@ -1,0 +1,12 @@
+{
+    "name": "Magic Wand - 4",
+    "description": "Tier 4, a wand that boosts your magic a lot.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/wands.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "izard's Wand of Questing" },
+        { "trait_type": "Equipment Type", "value": "Wand" },
+        { "trait_type": "Boost", "value": "Magic" },
+        { "trait_type": "Tier", "value": "4" }
+    ]
+}

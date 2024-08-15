@@ -883,11 +883,11 @@ MyGame = ig.Game.extend({
 			this.dFonts.wrapTheText(ctx, "You beat all " + this.totalLevels + " levels!", xPos + addToX, yPos + addToY, writableAreaX, this.dFonts.style3LineHeight); 
 		}
 		else{
-			this.dFonts.wrapTheText(ctx, "Your quest has concluded.", xPos + addToX, yPos + addToY, writableAreaX, this.dFonts.style3LineHeight); 
+			this.dFonts.wrapTheText(ctx, "Spend Your Gold on NFTs to Powerup!", xPos + addToX, yPos + addToY, writableAreaX, this.dFonts.style3LineHeight); 
 		}
 		this.dFonts.wrapTheText(ctx, "Gold Coins Collected: " +  ig.game.goldCoins, xPos + addToX, yPos + addToY + slotSizeY, writableAreaX, this.dFonts.style3LineHeight);		
 		this.dFonts.wrapTheText(ctx, "Wojacks Killed: " + ig.game.pData.deadGuys, xPos + addToX, yPos + addToY + slotSizeY * 2, writableAreaX, this.dFonts.style3LineHeight);
-		this.dFonts.wrapTheText(ctx, "Times You've Perished: " + ig.game.pData.deaths, xPos + addToX, yPos + addToY + slotSizeY * 3, writableAreaX, this.dFonts.style3LineHeight); 
+		this.dFonts.wrapTheText(ctx, "Times You've Perished: " + ig.game.pData.deaths - 1, xPos + addToX, yPos + addToY + slotSizeY * 3, writableAreaX, this.dFonts.style3LineHeight); 
 		
 		//Add one to square it
 		ctaYmultiplier += 1.5;

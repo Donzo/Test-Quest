@@ -1,0 +1,12 @@
+{
+    "name": "Wings - 3",
+    "description": "Tier 3, wings that boost your ability to hover a fair bit.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/wings.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "gel's Wings of Questing" },
+        { "trait_type": "Equipment Type", "value": "Wings" },
+        { "trait_type": "Boost", "value": "Hover" },
+        { "trait_type": "Tier", "value": "3" }
+    ]
+}

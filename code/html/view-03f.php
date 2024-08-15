@@ -28,8 +28,8 @@
 							<div class="item-description">
 								<h3>Magic Wand</h3>
 								<p>The Magic Wand increases your attack power, allowing you to defeat enemies more easily.</p>
-								<p>Cost: 100 GOLD</p>
-								<button class="bigButton" onclick="buyItem(1)">Buy</button>
+								<p>Cost: 10 GOLD</p>
+								<button class="bigButton" onclick="mintEquipment('wand')">Buy</button>
 							</div>
 						</div>
 						<div class="item-box">
@@ -37,8 +37,8 @@
 							<div class="item-description">
 								<h3>Armor</h3>
 								<p>The Armor increases your defense, providing you with greater protection from attacks.</p>
-								<p>Cost: 100 GOLD</p>
-								<button class="bigButton" onclick="buyItem(2)">Buy</button>
+								<p>Cost: 10 GOLD</p>
+								<button class="bigButton" onclick="mintEquipment('armor')">Buy</button>
 							</div>
 						</div>
 						<div class="item-box">
@@ -46,8 +46,8 @@
 							<div class="item-description">
 								<h3>Wings</h3>
 								<p>The Wings increase your hover ability, allowing you to reach higher places and avoid ground obstacles.</p>
-								<p>Cost: 100 GOLD</p>
-								<button class="bigButton" onclick="buyItem(3)">Buy</button>
+								<p>Cost: 10 GOLD</p>
+								<button class="bigButton" onclick="mintEquipment('wings')">Buy</button>
 							</div>
 						</div>
 					</div>

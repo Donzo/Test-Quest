@@ -1,5 +1,7 @@
 <script>
-
+		var askedQs = "";
+		var askedQsPrompt = false;
+		
 		async function sendInputToServer(input, agentPrompt) {
 			try {
 				const response = await fetch('/chat.php', {
@@ -56,6 +58,9 @@
 
 			//Add line breaks before each answer option
 			formattedQuestion = response.replace(optionRegex, '\n$1)');
+			
+			askedQs += formattedQuestion;
+			askedQsPrompt = "You have already asked the following questions so please ask different ones: " + askedQs;
 		}
 		function getQuestionPrompt() {
 			setLoadingGif('question'); //Set Loading Gif
@@ -65,6 +70,9 @@
 				theAgentPrompt += `, focusing on ${subtopic}`;
 			}
 			theAgentPrompt += `. The question should be clear, concise, and appropriately leveled for students. Do not include the answer or solution.`;
+			if (askedQsPrompt){
+				theAgentPrompt += askedQsPrompt;
+			}
 			gettingQuestion = true;
 			return theAgentPrompt;
 		}

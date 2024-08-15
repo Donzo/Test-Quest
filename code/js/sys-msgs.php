@@ -160,6 +160,38 @@
 				title.innerHTML = "You Have No Gold Coins";
 				body.innerHTML = "You cannot MINT gold coins until you earn them. Try collecting some coins on a quest.";
 			}
+			else if (num == 10){
+				title.innerHTML = "Approval Required";
+				body.innerHTML = "You need to allow the NFT contract to spend your GOLD COINS.";
+			}
+			else if (num == 11){
+				title.innerHTML = "Approval Successful";
+				body.innerHTML = "Approve the next transaction to buy your NFT item.";
+			}
+			else if (num == 12){
+				title.innerHTML = "ErMac";
+				body.innerHTML = "An error occurred while checking or approving your token allowance.";
+			}
+			else if (num == 13){
+				title.innerHTML = "ErMac";
+				body.innerHTML = "Web3 provider is not detected. Please install MetaMask or another Web3 provider.";
+			}
+			else if (num == 14){
+				title.innerHTML = "Success!";
+				body.innerHTML = "You have successfully purchased " + data + " NFT!";
+			}
+			else if (num == 15){
+				title.innerHTML = "ER MAC!";
+				body.innerHTML = "Error in purchasing " + data + " NFT! Try again.";
+			}
+			else if (num == 16){
+				title.innerHTML = "You Have Not Earned Enough Gold Coins";
+				body.innerHTML = "Try collecting some coins on a quest.";
+			}
+			else if (num == 17){
+				title.innerHTML = "You Need to MINT Your Coins";
+				body.innerHTML = "You have earned enough coins but you haven't minted them. Try to mint them now by pressing the MINT button.";
+			}
 		}
 		function setConfirmMsg(num){
 			var title = document.getElementById("confirmBoxTitle");
@@ -228,7 +260,22 @@
 				loadingWheel.innerHTML = loaded;
 				setTimeout("closeMiningBoxBox()", 4000); //Close mining box after 4 seconds.
 			}
-			
+			else if (num == 3){
+				var slicedObj = data.slice(0, 10);
+				slicedObj += "...";
+				var link = "https://opencampus-codex.blockscout.com/tx/" + data;
+				title.innerHTML = "Gold Minted!";
+				body.innerHTML = `Your Gold Coins have been minted and should now be in your wallet! <br/><br/>Transaction Hash: <a href='${link}' target='_blank'>${slicedObj}</a>`;
+				loadingWheel.innerHTML = loaded;
+				setTimeout("closeMiningBoxBox()", 4000); //Close mining box after 4 seconds.
+			}
+			else if (num == 4){
+				closeAlert();
+				title.innerHTML = "Success!";
+				body.innerHTML = "You have successfully purchased " + data + " NFT!";
+				loadingWheel.innerHTML = loaded;
+				setTimeout("closeMiningBoxBox()", 4000); //Close mining box after 4 seconds.
+			}
 			
 			
 		}

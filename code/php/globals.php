@@ -1,3 +1,5 @@
 <?php
 	$goldContractAddress = '0xc2BC0B330D39F4380946a6bEAf951829B31FF887';
+	$nftContractAddress = '0x1BB300F5A90cf8AaF4C11800883dEF22432912ee';
+	$nftItemsContractAddress = '0x8875054C87E0AD3848bd25e3e92d74147cC053fE';
 ?>
