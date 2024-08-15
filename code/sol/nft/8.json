@@ -1,0 +1,12 @@
+{
+    "name": "Armor - 3",
+    "description": "Tier 3, armor that boosts your defense a fair bit.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/armor.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "ight's Armor of Questing" },
+        { "trait_type": "Equipment Type", "value": "Armor" },
+        { "trait_type": "Boost", "value": "Defense" },
+        { "trait_type": "Tier", "value": "3" }
+    ]
+}

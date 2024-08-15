@@ -1,0 +1,12 @@
+{
+    "name": "Armor - 5",
+    "description": "Tier 5, armor that boosts your defense immensely for Questing.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/armor.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "Knight's Armor of Questing" },
+        { "trait_type": "Equipment Type", "value": "Armor" },
+        { "trait_type": "Boost", "value": "Defense" },
+        { "trait_type": "Tier", "value": "5" }
+    ]
+}

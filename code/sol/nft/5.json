@@ -1,0 +1,12 @@
+{
+    "name": "Magic Wand - 5",
+    "description": "Tier 5, a wand that boosts your magic immensely, intensely.",
+    "external_url": "https://www.testquest.app/",
+    "image": "https://www.testquest.app/images/wands.png",
+    "attributes": [
+        { "trait_type": "Name", "value": "Wizard's Wand of Questing" },
+        { "trait_type": "Equipment Type", "value": "Wand" },
+        { "trait_type": "Boost", "value": "Magic" },
+        { "trait_type": "Tier", "value": "5" }
+    ]
+}
